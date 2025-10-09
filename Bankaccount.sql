@@ -82,7 +82,7 @@ CREATE TABLE loan (
 insert into Bankcustomer values ("Avinash","Bull_Temple_Road","Banglore");
 insert into Bankcustomer values ("Dinesh","Bannergatta_Road","Banglore");
 insert into Bankcustomer values ("Mohan","NationalCollege_Road","Banglore");
-insert into Bankcustomer values ("Nikil","Akbar_Road","Delhi");
+insert into Bankcustomer values ("Nikhil","Akbar_Road","Delhi");
 insert into Bankcustomer values ("Ravi","Prithviraj_Road","Delhi");
 
 insert into Loan values (1,"SBI_Chamrajpet", 1000);
