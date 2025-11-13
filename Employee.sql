@@ -71,11 +71,24 @@ INSERT INTO assigned_to VALUES(7499,101,'Software Engineer'),
  
  select * from assigned_to;
  
-select e.empno
+ select e.empno
 from emp e, assigned_to a, project p
 where e.empno=a.empno and a.pno=p.pno and 
 p.ploc in ('Bengaluru','Hyderabad','Mysuru');
 
 select e.empno, e.ename, d.dname,d.loc,a.job_role,p.ploc
 from emp e,dept d, assigned_to a,project p
-where e.deptno=d.deptno and e.empno= a.empno and a.pno=p.pno and d.loc
+where e.deptno=d.deptno and e.empno= a.empno and a.pno=p.pno and d.loc;
+ 
+ 
+SELECT m.ename, count(*) FROM emp e,emp m WHERE e.mgr_no = m.empno GROUP BY m.ename HAVING count(*) =(SELECT MAX(mycount) from (SELECT COUNT(*) mycount FROM emp GROUP BY mgr_no) a);
+
+SELECT * FROM emp m WHERE m.empno IN (SELECT mgr_no FROM emp) AND m.sal > (SELECT avg(e.sal) FROM emp e WHERE e.mgr_no = m.empno );  
+
+SELECT distinct e.ename FROM emp e,incentives i WHERE (SELECT max(sal+incentive_amount) FROM emp,incentives) >= ANY (SELECT sal FROM emp e1 where e.deptno=e1.deptno);
+
+SELECT * FROM EMP E WHERE E.DEPTNO = (SELECT E1.DEPTNO FROM EMP E1 WHERE E1.EMPNO=E.MGR_NO);
+
+select distinct m.mgr_no, m.empno, m.ename, e.deptno, m.sal, m.hiredate from emp e, emp m where e.mgr_no=m.mgr_no and e.deptno= m.deptno and e.empno in (select distinct m.mgr_no from emp e, emp m where e.mgr_no = m.mgr_no and e.deptno= m.deptno);
+
+select * from emp e,incentives i where e.empno=i.empno and 2 = ( select count(*) from incentives j where i.incentive_amount <= j.incentive_amount );
